@@ -30,8 +30,10 @@ let main args =
                 return MessagingResponse().Message($"Ahoy {from}!").ToTwiMLResult()
             })
         )
-        .ValidateTwilioRequest()
-    |> ignore
+        .ValidateTwilioRequest() |> ignore
+    
+    app.MapPost("/voice", Func<TwiMLResult>(fun () -> VoiceResponse().Say("Ahoy!").ToTwiMLResult()))
+        .ValidateTwilioRequest() |> ignore
 
     app.Run()
 
